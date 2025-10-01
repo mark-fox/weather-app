@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Find Current Weather</h2>
+  <p>Enter a city, ZIP/postal, landmark, or "lat,lon".</p>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="/search">
+    <input type="text" name="q" placeholder="e.g., 55401 or Minneapolis or 40.71,-74.01" required />
+    <div class="meta" style="margin-top:.5rem;">Optional date range (YYYY-MM-DD)</div>
+    <input type="date" name="start" />
+    <input type="date" name="end" /><button type="submit">Check Weather</button>
+  </form>
+
+  <p style="margin-top:1rem;">
+    <button id="use-loc-btn" type="button">Use my location</button>
+    <span id="use-loc-msg" class="meta"></span>
+  </p>
+{% endblock %}

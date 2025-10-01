@@ -1,0 +1,9 @@
+body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+header { margin-bottom: 1.5rem; }
+form input[type="text"] { padding: 0.5rem; width: 280px; }
+button { padding: 0.5rem 0.8rem; }
+.error { color: #b00; margin: 1rem 0; }
+.meta { color: #555; font-size: 0.9rem; }
+nav a { margin-right: 1rem; }
+table { border-collapse: collapse; }
+table th, table td { border: 1px solid #ccc; padding: 6px; }

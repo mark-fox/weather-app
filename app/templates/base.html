@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Weather App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Weather App</h1>
+    <div class="meta">by Mark Fox — <a href="https://www.linkedin.com/school/pmaccelerator/" target="_blank" rel="noopener noreferrer">Info (PM Accelerator)</a></div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/history">History</a>
+      <a href="/export/json" download="weather_queries.json">Export All (JSON)</a>
+      <a href="/export/csv"  download="weather_queries.csv">Export All (CSV)</a>
+    </nav>
+  </header>
+
+  {% block content %}{% endblock %}
+</body>
+</html>

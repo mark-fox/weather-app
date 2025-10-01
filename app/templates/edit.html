@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Edit Query #{{ row.id }}</h2>
+
+<form action="/update" method="post">
+  <input type="hidden" name="id" value="{{ row.id }}">
+
+  <div>
+    <label>Location text</label><br>
+    <input type="text" name="input_text" value="{{ row.input_text }}" required style="width:300px;">
+    <div class="meta">You can change the original input (city, ZIP, landmark, or "lat,lon").</div>
+  </div>
+
+  <div style="margin-top:.5rem;">
+    <label>Label (optional)</label><br>
+    <input type="text" name="label" value="{{ row.label or '' }}" style="width:300px;">
+  </div>
+
+  <div style="margin-top:.5rem;">
+    <label>Date range (optional, YYYY-MM-DD)</label><br>
+    <input type="date" name="start" value="{{ row.date_start if row.date_start else '' }}">
+    <input type="date" name="end" value="{{ row.date_end if row.date_end else '' }}">
+    <div class="meta">Leave both empty to show the standard 5-day forecast.</div>
+  </div>
+
+  <div style="margin-top:1rem;">
+    <button type="submit">Save & Re-fetch</button>
+    <a href="/result?id={{ row.id }}" style="margin-left:1rem;">Cancel</a>
+  </div>
+</form>
+{% endblock %}

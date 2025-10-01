@@ -1,0 +1,104 @@
+{% extends "base.html" %} {% block content %}
+<h2>Current Weather</h2>
+
+<p><strong>Query:</strong> {{ query }}</p>
+<p>
+  <strong>Resolved:</strong> {{ resolved.name }} ({{ "%.4f"|format(resolved.lat)
+  }}, {{ "%.4f"|format(resolved.lon) }})
+</p>
+
+<ul>
+  <li><strong>Condition:</strong> {{ current.weather_desc }}</li>
+
+  <li>
+    <strong>Temperature:</strong>
+    {% if current.temperature_c is not none %} {{
+    "%.1f"|format(current.temperature_c) }} °C / {{
+    "%.1f"|format(current.temperature_f) }} °F {% else %} — {% endif %}
+  </li>
+
+  <li>
+    <strong>Feels like:</strong>
+    {% if current.apparent_c is not none %} {{ "%.1f"|format(current.apparent_c)
+    }} °C / {{ "%.1f"|format(current.apparent_f) }} °F {% else %} — {% endif %}
+  </li>
+
+  <li><strong>Wind:</strong> {{ current.wind_speed }} m/s</li>
+  <li><strong>Precipitation:</strong> {{ current.precipitation }} mm</li>
+</ul>
+
+{% if range_rows %}
+<h3>Date Range: {{ date_range.start }} → {{ date_range.end }}</h3>
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Condition</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Precipitation</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for day in range_rows %}
+    <tr>
+      <td>{{ day.date }}</td>
+      <td>{{ day.weather_desc }}</td>
+      <td>
+        {% if day.tmax_c is not none %} {{ "%.1f"|format(day.tmax_c) }} °C / {{
+        "%.1f"|format(day.tmax_f) }} °F {% else %} — {% endif %}
+      </td>
+      <td>
+        {% if day.tmin_c is not none %} {{ "%.1f"|format(day.tmin_c) }} °C / {{
+        "%.1f"|format(day.tmin_f) }} °F {% else %} — {% endif %}
+      </td>
+      <td>
+        {% if day.precip_mm is not none %} {{ "%.1f"|format(day.precip_mm) }} mm
+        / {{ "%.2f"|format(day.precip_in) }} in {% else %} — {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %} {% if forecast %}
+<h3>5-Day Forecast</h3>
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Condition</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Precipitation</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for day in forecast %}
+    <tr>
+      <td>{{ day.date }}</td>
+      <td>{{ day.weather_desc }}</td>
+      <td>
+        {% if day.tmax_c is not none %} {{ "%.1f"|format(day.tmax_c) }} °C / {{
+        "%.1f"|format(day.tmax_f) }} °F {% else %} — {% endif %}
+      </td>
+      <td>
+        {% if day.tmin_c is not none %} {{ "%.1f"|format(day.tmin_c) }} °C / {{
+        "%.1f"|format(day.tmin_f) }} °F {% else %} — {% endif %}
+      </td>
+      <td>
+        {% if day.precip_mm is not none %} {{ "%.1f"|format(day.precip_mm) }} mm
+        / {{ "%.2f"|format(day.precip_in) }} in {% else %} — {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% if id %}
+  <p style="margin-top:1rem;">
+    <a href="/export/json?id={{ id }}" download="weather_{{ id }}.json">Export this (JSON)</a>
+    <a href="/export/csv?id={{ id }}"  download="weather_{{ id }}.csv">Export this (CSV)</a>
+  </p>
+{% endif %}
+<p><a href="/">Search again</a></p>
+{% endblock %}
